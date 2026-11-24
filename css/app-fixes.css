@@ -1,0 +1,287 @@
+/* ChatWithPDF responsive/layout fixes — load after app.css */
+
+/* button {
+    color: inherit;
+} */
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.sidebar {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.side-brand {
+    position: relative;
+    min-height: 48px;
+}
+.side-link-1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 12px;
+    border-radius: 12px;
+    margin: 2px 0;
+    cursor: pointer;
+}
+.sidebar-close {
+    display: none;
+    margin-left: auto;
+    flex: 0 0 auto;
+    color: #fff;
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.15);
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+    border: 0;
+    background: rgba(8, 20, 37, .52);
+    cursor: pointer;
+}
+
+.sidebar-overlay.show {
+    display: block;
+}
+
+.file-actions {
+    display: flex;
+    gap: 6px;
+    flex: 0 0 auto;
+}
+
+.file-actions .icon-btn {
+    width: 36px;
+    height: 36px;
+}
+
+.document-status {
+    display: inline-block;
+    margin-top: 5px;
+    text-transform: capitalize;
+}
+
+.status-ready { color: #067647 !important; }
+.status-processing { color: #9a6700 !important; }
+.status-failed { color: #b42318 !important; }
+
+.chat-item-button {
+    display: block;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    text-align: left;
+    font: inherit;
+}
+
+.chat-item-meta {
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.chat-document-info {
+    min-width: 0;
+}
+
+#selected-pdf-name {
+    display: inline-block;
+    max-width: min(48vw, 360px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
+.source-chip.active {
+    background: #e9f7bd;
+    border: 1px solid #c4e66a;
+}
+
+.chat-dashboard .main {
+    min-height: 100vh;
+}
+
+.chat-shell {
+    min-height: calc(100vh - 70px);
+    height: calc(100vh - 70px);
+    min-width: 0;
+}
+
+.chat-messages {
+    min-height: 0;
+    overscroll-behavior: contain;
+}
+
+.chat-header {
+    min-width: 0;
+}
+
+.composer-box {
+    min-width: 0;
+}
+
+.composer-box textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 2px;
+}
+
+.msg-bubble {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.msg-bubble p {
+    white-space: pre-wrap;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.modal {
+    width: min(560px, 100%);
+}
+
+#profile-form .form-actions,
+#new-chat-form .form-actions {
+    margin-bottom: 2px;
+}
+
+#dropzone {
+    transition: background .2s, border-color .2s;
+}
+
+#choose-file {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        width: min(300px, 86vw);
+        transform: translateX(-105%);
+        transition: transform .25s ease;
+        box-shadow: 18px 0 45px rgba(0,0,0,.18);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-close {
+        display: grid;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .topbar {
+        min-height: 64px;
+        height: auto;
+        padding: 10px 14px;
+        gap: 10px;
+    }
+
+    .content {
+        padding: 16px;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .stat {
+        padding: 14px;
+        min-width: 0;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .dashboard-grid {
+        gap: 14px;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+
+    .chat-shell {
+        height: calc(100dvh - 64px);
+        min-height: calc(100dvh - 64px);
+    }
+
+    .chat-header {
+        padding: 12px 14px;
+        align-items: stretch;
+    }
+
+    .chat-document-info {
+        width: 100%;
+    }
+
+    .chat-header #select-pdf {
+        width: 100%;
+    }
+
+    .chat-messages {
+        padding: 16px 12px;
+        gap: 14px;
+    }
+
+    .msg {
+        max-width: 94%;
+    }
+
+    .chat-composer {
+        padding: 10px 12px 14px;
+    }
+
+    .composer-box {
+        gap: 6px;
+        padding: 7px;
+    }
+
+    #selected-pdf-name {
+        max-width: 58vw;
+    }
+
+    .modal-backdrop {
+        padding: 12px;
+    }
+
+    .modal {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .file-row {
+        align-items: flex-start;
+    }
+
+    .file-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 380px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome h1 {
+        font-size: 26px;
+    }
+}
