@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Dashboard — ChatWithPDF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/app-fixes.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="side-brand"><span class="brand-mark"><i
+                        data-lucide="file-text"></i></span><strong>ChatWithPDF</strong><button
+                    class="icon-btn sidebar-close" id="sidebar-close" type="button" aria-label="Close sidebar"><i
+                        data-lucide="x"></i></button></div>
+            <div class="side-section">
+                <div class="side-label">Workspace</div><a class="side-link active" href="dashboard.html"><i
+                        data-lucide="layout-dashboard"></i>Dashboard</a><a class="side-link" href="#documents"
+                    data-scroll="documents"><i data-lucide="files"></i>My Documents</a><a class="side-link"
+                    href="#history" data-scroll="history"><i data-lucide="history"></i>Chat History</a>
+            </div>
+            <div class="side-section">
+                <div class="side-label">Account</div><a class="side-link" href="#profile" id="side-profile"><i
+                        data-lucide="user-round"></i>Profile</a><a class="side-link" href="terms.html"><i
+                        data-lucide="file-text"></i>Terms</a><a class="side-link" href="privacy.html"><i
+                        data-lucide="shield"></i>Privacy</a>
+            </div>
+            <div class="side-bottom">
+                <div class="profile-mini" id="profile-trigger"><span class="avatar" id="avatar">U</span>
+                    <div><strong id="profile-name">User</strong><small class="muted"
+                            style="display:block;color:#91a1b3">View profile</small></div><i data-lucide="chevron-up"
+                        style="margin-left:auto"></i>
+                </div>
+            </div>
+        </aside>
+        <div class="main">
+            <header class="topbar">
+                <div style="display:flex;align-items:center;gap:10px"><button class="icon-btn mobile-menu-btn"
+                        id="mobile-menu"><i data-lucide="menu"></i></button>
+                    <div><strong id="top-title">Dashboard</strong>
+                        <div class="muted" style="font-size:12px">Your learning workspace</div>
+                    </div>
+                </div><button class="icon-btn" title="Notifications"><i data-lucide="bell"></i></button>
+            </header>
+            <main class="content">
+                <section class="welcome">
+                    <div>
+                        <p class="muted" style="margin:0 0 5px">Good to see you again</p>
+                        <h1 class="display">Hi, <span id="welcome-name">Student</span>.</h1>
+                        <p class="muted" style="margin:0">Upload a document and start asking questions.</p>
+                    </div><button class="btn btn-lime" id="new-chat"><i data-lucide="plus"></i> New Chat</button>
+                </section>
+                <section class="stats">
+                    <article class="card stat">
+                        <div class="stat-top">Total uploads <i data-lucide="files"></i></div>
+                        <div class="stat-value" id="stat-uploads">0</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-top">Conversations <i data-lucide="messages-square"></i></div>
+                        <div class="stat-value" id="stat-chats">0</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-top">Questions asked <i data-lucide="message-circle-question"></i></div>
+                        <div class="stat-value" id="stat-questions">0</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-top">Profile status <i data-lucide="graduation-cap"></i></div>
+                        <div class="stat-value" id="stat-profile">Basic</div>
+                    </article>
+                </section>
+                <section class="dashboard-grid">
+                    <article class="card panel" id="documents">
+                        <div class="panel-title">
+                            <h2>Upload a PDF</h2><span class="source-chip"><i data-lucide="sparkles"></i> AI
+                                ready</span>
+                        </div>
+                        <div class="dropzone" id="dropzone">
+                            <div class="drop-icon"><i data-lucide="upload-cloud"></i></div>
+                            <h3 style="margin:0 0 5px">Drop your PDF here</h3>
+                            <p class="muted" style="margin:0 0 16px">or choose a file from your computer</p><input
+                                id="file-input" type="file" accept="application/pdf" hidden><button
+                                class="btn btn-primary" id="choose-file" type="button">Choose PDF</button>
+                            <p class="muted" id="file-status" style="font-size:12px;margin:12px 0 0">PDF files only</p>
+                        </div>
+                    </article>
+                    <article class="card panel" id="history">
+                        <div class="panel-title">
+                            <h2>Recent conversations</h2><button class="icon-btn" id="clear-history"
+                                title="Clear history"><i data-lucide="trash-2"></i></button>
+                        </div>
+                        <div class="chat-list" id="chat-list">
+                            <div class="empty">No conversations yet.<br>Upload a PDF to start.</div>
+                        </div>
+                    </article>
+                </section>
+                <section class="card panel" style="margin-top:18px">
+                    <div class="panel-title">
+                        <h2>Your documents</h2><span class="muted" id="doc-count">0 files</span>
+                    </div>
+                    <div class="file-list" id="file-list">
+                        <div class="empty">Your uploaded PDFs will appear here.</div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <div class="profile-panel" id="profile-panel">
+        <div class="profile-head"><span class="avatar" id="panel-avatar">U</span>
+            <div><strong id="panel-name">User</strong>
+                <div class="muted" id="panel-email">email</div>
+            </div>
+        </div>
+        <div style="padding:13px 2px"><small class="muted">Academic context</small>
+            <div id="academic-context" style="font-weight:700;margin-top:5px">Not configured</div>
+        </div>
+        <div class="profile-menu"><button id="edit-profile"><i data-lucide="settings-2"></i> Edit
+                profile</button><button id="logout" style="color:#b42318"><i data-lucide="log-out"></i> Logout</button>
+        </div>
+    </div>
+    <div class="modal-backdrop" id="profile-modal">
+        <div class="modal">
+            <div class="modal-head">
+                <h2>Edit profile</h2><button class="icon-btn" data-close="profile-modal"><i
+                        data-lucide="x"></i></button>
+            </div>
+            <form id="profile-form">
+                <div class="form-grid">
+                    <div class="form-group"><label>Full name</label><input class="input" name="name"></div>
+                    <div class="form-group"><label>Email</label><input class="input" name="email" type="email"></div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group"><label>Course</label><input class="input" name="course"
+                            placeholder="B.Tech"></div>
+                    <div class="form-group"><label>Branch</label><input class="input" name="branch"
+                            placeholder="Computer Science"></div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group"><label>Year / Semester</label><input class="input" name="year"></div>
+                    <div class="form-group"><label>College / University</label><input class="input" name="college">
+                    </div>
+                </div><label class="check"><input name="academicMode" type="checkbox"> Use my academic profile when
+                    generating explanations.</label>
+                <div class="form-actions"><button class="btn btn-primary" type="submit">Save profile</button></div>
+            </form>
+        </div>
+    </div>
+    <!-- Create New Chat Modal -->
+    <div class="modal-backdrop" id="new-chat-modal">
+        <div class="modal">
+            <div class="modal-head">
+                <h2>Create New Chat</h2>
+                <button class="icon-btn" data-close="new-chat-modal" type="button">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <form id="new-chat-form">
+                <div class="form-group">
+                    <label for="chat-name">Chat name</label>
+                    <input class="input" type="text" id="chat-name" name="chatName"
+                        placeholder="e.g. Machine Learning Notes" maxlength="60" required autofocus>
+                    <small class="muted">Give your conversation a meaningful name.</small>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit" id="create-chat-btn">
+                        Create Chat
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button id="sidebar-overlay" class="sidebar-overlay" type="button" aria-label="Close navigation"></button>
+    <div id="toast" class="toast"></div>
+    <script src="js/common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

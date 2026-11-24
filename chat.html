@@ -1,0 +1,207 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Chat — ChatWithPDF</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/app-fixes.css">
+</head>
+
+<body>
+
+<div class="dashboard chat-dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="side-brand">
+            <span class="brand-mark">
+                <i data-lucide="file-text"></i>
+            </span>
+            <strong>ChatWithPDF</strong>
+        </div>
+
+        <div class="side-section">
+            <div class="side-label">Workspace</div>
+
+            <a class="side-link" href="dashboard.html">
+                <i data-lucide="layout-dashboard"></i>
+                Dashboard
+            </a>
+
+            <button class="side-link-1" id="new-chat">
+                <i data-lucide="plus"></i>
+                New Chat
+            </button>
+        </div>
+
+        <div class="side-section">
+            <div class="side-label">Recent conversations</div>
+            <div id="recent-chats" class="recent-chat-list">
+                <div class="empty">No conversations yet.</div>
+            </div>
+        </div>
+
+        <div class="side-bottom">
+
+            <div class="profile-mini">
+                <span class="avatar" id="avatar">U</span>
+
+                <div>
+                    <strong id="name">User</strong>
+                    <small class="muted" style="display:block;color:#91a1b3">
+                        My account
+                    </small>
+                </div>
+            </div>
+
+            <button class="side-link" id="logout"
+                style="width:100%;border:0;background:transparent">
+                <i data-lucide="log-out"></i>
+                Logout
+            </button>
+
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main">
+
+        <!-- Topbar -->
+        <header class="topbar">
+
+            <div style="display:flex;align-items:center;gap:10px">
+
+                <button class="icon-btn mobile-menu-btn" id="mobile-menu">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div>
+                    <strong id="chat-title">New Conversation</strong>
+                    <div class="muted" style="font-size:12px">
+                        Your personal AI workspace
+                    </div>
+                </div>
+
+            </div>
+
+            <a href="dashboard.html" class="btn btn-ghost">
+                <i data-lucide="arrow-left"></i>
+                Dashboard
+            </a>
+
+        </header>
+
+        <!-- Chat area -->
+        <main class="chat-shell">
+
+            <!-- Chat header -->
+            <div class="chat-header">
+
+                <div class="chat-document-info">
+
+                    <span class="source-chip" id="document-chip">
+                        <i data-lucide="file-text"></i>
+                        <span id="selected-pdf-name">No PDF selected</span>
+                    </span>
+
+                    <span class="source-chip">
+                        <i data-lucide="sparkles"></i>
+                        AI Assistant
+                    </span>
+
+                </div>
+
+                <button class="btn btn-ghost" id="select-pdf" type="button">
+                    <i data-lucide="folder-open"></i>
+                    Select PDF
+                </button>
+
+            </div>
+
+            <!-- Messages -->
+            <section class="chat-messages" id="messages">
+
+                <div class="chat-empty-state" id="chat-empty-state">
+
+                    <div class="empty-chat-icon">
+                        <i data-lucide="message-square-text"></i>
+                    </div>
+
+                    <h2>Start a conversation</h2>
+
+                    <p>
+                        Select a PDF document and ask questions.
+                        Your AI assistant will answer using the document's content.
+                    </p>
+
+                    <button class="btn btn-primary" id="empty-select-pdf">
+                        <i data-lucide="file-up"></i>
+                        Choose a PDF
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- Composer -->
+            <section class="chat-composer">
+
+                <div class="composer-box">
+
+                    <button class="icon-btn" id="attach" type="button"
+                        title="Select PDF">
+                        <i data-lucide="paperclip"></i>
+                    </button>
+
+                    <textarea
+                        id="question"
+                        placeholder="Select a PDF to start asking questions..."
+                        rows="1"
+                        disabled
+                    ></textarea>
+
+                    <button class="btn btn-primary" id="send"
+                        type="button" disabled>
+                        <i data-lucide="send"></i>
+                    </button>
+
+                </div>
+
+                <div class="muted composer-note">
+                    AI answers should be verified against your source material.
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+<button id="sidebar-overlay" class="sidebar-overlay" type="button" aria-label="Close navigation"></button>
+
+<!-- PDF input -->
+<input id="pdf" type="file" accept="application/pdf" hidden>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- Scripts -->
+<script src="js/common.js"></script>
+<script src="js/chat.js"></script>
+
+</body>
+</html>

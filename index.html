@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatWithPDF — Makes Learning Easy</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --ink: #10233f;
+            --paper: #f7f1e8;
+            --lime: #d7ff49;
+            --coral: #ff7a66;
+            --mist: #dbe7ef;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            color: var(--ink);
+        }
+
+        .display-font {
+            font-family: "Fraunces", serif;
+        }
+
+        .ink-grid {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .055) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .055) 1px, transparent 1px);
+            background-size: 34px 34px;
+        }
+
+        .hero-orb {
+            background: radial-gradient(circle,
+                    rgba(215, 255, 73, .42) 0%,
+                    rgba(215, 255, 73, .12) 34%,
+                    transparent 68%);
+            filter: blur(4px);
+        }
+
+        .node-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(215, 255, 73, .85),
+                    transparent);
+            transform-origin: left center;
+        }
+
+        .reveal {
+            animation: lift-in .7s ease both;
+        }
+
+        .delay-1 {
+            animation-delay: .1s;
+        }
+
+        .delay-2 {
+            animation-delay: .2s;
+        }
+
+        .delay-3 {
+            animation-delay: .3s;
+        }
+
+        @keyframes lift-in {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-chip.active {
+            background: #d7ff49;
+            border-color: #d7ff49;
+            color: #10233f;
+        }
+
+        .question-chip:focus-visible,
+        button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid #d7ff49;
+            outline-offset: 3px;
+        }
+
+        .mobile-menu-open {
+            display: flex !important;
+        }
+
+        @media (max-width: 767px) {
+            .mobile-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="w-full overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 border-b border-[#dce4e7] bg-[#f7f1e8]/95 backdrop-blur">
+        <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+
+            <a href="#top" class="flex items-center gap-3" aria-label="ChatWithPDF home">
+                <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#10233f] text-[#d7ff49]">
+                    <i data-lucide="file-text" class="h-5 w-5"></i>
+                </span>
+
+                <span class="text-lg font-bold tracking-tight">
+                    ChatWithPDF
+                </span>
+            </a>
+
+            <nav class="hidden items-center gap-7 md:flex" aria-label="Main navigation">
+                <a class="text-sm font-semibold hover:text-[#ff5c47]" href="#features">
+                    Features
+                </a>
+
+                <a class="text-sm font-semibold hover:text-[#ff5c47]" href="#workflow">
+                    How It Works
+                </a>
+
+                <a class="text-sm font-semibold hover:text-[#ff5c47]" href="#future">
+                    What's Next
+                </a>
+            </nav>
+
+            <div class="hidden items-center gap-2 md:flex">
+                <a class="rounded-full border-2 border-[#10233f] px-5 py-2.5 text-sm font-bold text-[#10233f] transition hover:-translate-y-0.5 hover:bg-[#10233f] hover:text-[#d7ff49]"
+                    href="login.html">Try a Demo
+                </a>
+            </div>
+
+            <button id="menu-button" class="rounded-lg p-2 text-[#10233f] md:hidden" type="button"
+                aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                <i data-lucide="menu" class="h-6 w-6"></i>
+            </button>
+        </div>
+
+        <!-- MOBILE MENU -->
+        <nav id="mobile-menu" class="mobile-nav flex-col gap-4 border-t border-[#dce4e7] px-5 py-5 md:hidden"
+            aria-label="Mobile navigation">
+
+            <a class="font-semibold" href="#features">
+                Features
+            </a>
+
+            <a class="font-semibold" href="#workflow">
+                How It Works
+            </a>
+
+            <a class="font-semibold" href="#future">
+                What's Next
+            </a>
+
+            <div class="flex flex-wrap gap-2 pt-2">
+                <a class="rounded-full border-2 border-[#10233f] px-5 py-2.5 font-bold text-[#10233f]"
+                    href="login.html">
+                    Login
+                </a>
+                <a class="rounded-full bg-[#10233f] px-5 py-2.5 font-bold text-[#d7ff49]"
+                    href="register.html">
+                    Register
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="top">
+
+        <!-- HERO -->
+        <section class="ink-grid relative w-full overflow-hidden bg-[#10233f]">
+
+            <div class="hero-orb absolute -right-24 -top-20 h-96 w-96 rounded-full"></div>
+
+            <div class="node-line left-[53%] top-[25%] w-56 -rotate-[22deg]"></div>
+            <div class="node-line left-[66%] top-[57%] w-44 rotate-[43deg]"></div>
+
+            <div
+                class="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[1.02fr_.98fr]">
+
+                <!-- HERO COPY -->
+                <div>
+
+                    <p
+                        class="reveal inline-flex rounded-full border border-[#d7ff49]/50 bg-[#d7ff49]/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[.16em] text-[#d7ff49]">
+                        AI-Powered PDF Learning
+                    </p>
+
+                    <h1
+                        class="display-font reveal delay-1 mt-6 max-w-3xl text-5xl font-semibold leading-[1.02] tracking-tight text-white md:text-7xl">
+                        Turn any PDF into a conversation.
+                    </h1>
+
+                    <p class="reveal delay-2 mt-7 max-w-xl text-lg leading-8 text-[#dbe7ef]">
+                        Upload your notes, textbook, research paper, or study material and ask questions in plain
+                        English. ChatWithPDF helps you understand what matters without digging through every page.
+                    </p>
+
+                    <div class="reveal delay-3 mt-9 flex flex-wrap gap-3">
+
+                        <a class="inline-flex items-center gap-2 rounded-full bg-[#d7ff49] px-6 py-3.5 font-bold text-[#10233f] transition hover:-translate-y-1"
+                            href="register.html">
+                            Start Learning
+                            <i data-lucide="arrow-up-right" class="h-4 w-4"></i>
+                        </a>
+
+                        <a class="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3.5 font-bold text-white transition hover:border-[#d7ff49] hover:text-[#d7ff49]"
+                            href="#features">
+                            Explore Features
+                            <i data-lucide="sparkles" class="h-4 w-4"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="mt-11 flex flex-wrap gap-x-7 gap-y-3 text-sm text-[#dbe7ef]">
+
+                        <span class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="h-4 w-4 text-[#d7ff49]"></i>
+                            No more endless scrolling
+                        </span>
+
+                        <span class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="h-4 w-4 text-[#d7ff49]"></i>
+                            Learn directly from your documents
+                        </span>
+
+                    </div>
+                </div>
+
+                <!-- HERO MOCKUP -->
+                <div class="relative mx-auto w-full max-w-xl">
+
+                    <div
+                        class="absolute -right-4 -top-6 hidden w-36 rotate-6 rounded-2xl border border-white/10 bg-[#ff7a66] p-3 text-[#10233f] shadow-xl sm:block">
+
+                        <p class="text-[10px] font-bold uppercase tracking-[.12em]">
+                            Study smarter
+                        </p>
+
+                        <p class="mt-2 text-sm font-bold leading-5">
+                            Ask questions. Get answers. Keep learning.
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="relative overflow-hidden rounded-[2rem] border border-white/15 bg-[#183656] p-3 shadow-2xl shadow-black/40">
+
+                        <div class="h-36 w-full rounded-[1.4rem] bg-gradient-to-br from-[#294d70] to-[#10233f] md:h-44">
+                            <div class="flex h-full items-center justify-center">
+                                <i data-lucide="file-text" class="h-16 w-16 text-[#d7ff49] opacity-60"></i>
+                            </div>
+                        </div>
+
+                        <div
+                            class="relative -mt-16 mx-3 rounded-2xl border border-white/15 bg-[#f7f1e8] p-4 shadow-xl md:p-5">
+
+                            <div class="flex items-center justify-between border-b border-[#d7d0c4] pb-3">
+
+                                <div class="flex items-center gap-2">
+
+                                    <span
+                                        class="flex h-7 w-7 items-center justify-center rounded-lg bg-[#ff7a66] text-[#10233f]">
+                                        <i data-lucide="file-text" class="h-4 w-4"></i>
+                                    </span>
+
+                                    <div>
+                                        <p class="text-sm font-bold">
+                                            Biology_Chapter_04.pdf
+                                        </p>
+
+                                        <p class="text-xs text-[#627086]">
+                                            24 pages · Ready to chat
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <i data-lucide="more-horizontal" class="h-5 w-5 text-[#627086]"></i>
+
+                            </div>
+
+                            <div class="mt-4 grid gap-3">
+
+                                <div
+                                    class="ml-auto max-w-[87%] rounded-2xl rounded-tr-sm bg-[#10233f] px-4 py-3 text-sm text-white">
+                                    What are the three main functions of the cell membrane?
+                                </div>
+
+                                <div
+                                    class="max-w-[92%] rounded-2xl rounded-tl-sm bg-[#dbe7ef] px-4 py-3 text-sm leading-6 text-[#10233f]">
+
+                                    <div
+                                        class="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#47617b]">
+                                        <i data-lucide="sparkles" class="h-3.5 w-3.5"></i>
+                                        AI Answer
+                                    </div>
+
+                                    The cell membrane controls what enters and leaves the cell, helps maintain the
+                                    cell's internal environment, and enables communication with its surroundings.
+                                </div>
+
+                            </div>
+
+                            <div
+                                class="mt-4 flex items-center gap-2 rounded-xl border border-[#d7d0c4] bg-white px-3 py-2.5">
+
+                                <i data-lucide="message-circle" class="h-4 w-4 text-[#6c7b90]"></i>
+
+                                <span class="text-xs text-[#6c7b90]">
+                                    Ask anything about this PDF...
+                                </span>
+
+                                <i data-lucide="send" class="ml-auto h-4 w-4 text-[#ff5c47]"></i>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECHNOLOGY STRIP -->
+        <section class="w-full bg-[#d7ff49]">
+
+            <div
+                class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-6 md:flex-row md:items-center md:justify-between md:px-8">
+
+                <p class="text-sm font-bold uppercase tracking-[.14em]">
+                    Built for the way you learn
+                </p>
+
+                <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-bold text-[#10233f]">
+
+                    <span>Instant Answers</span>
+                    <span class="hidden md:inline">✦</span>
+
+                    <span>Document Search</span>
+                    <span class="hidden md:inline">✦</span>
+
+                    <span>Context-Aware AI</span>
+                    <span class="hidden md:inline">✦</span>
+
+                    <span>Simple Conversations</span>
+                    <span class="hidden md:inline">✦</span>
+
+                    <span>Focused Learning</span>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section id="features" class="w-full bg-[#f7f1e8] py-20 md:py-28">
+
+            <div class="mx-auto w-full max-w-7xl px-5 md:px-8">
+
+                <div class="grid gap-8 md:grid-cols-[.8fr_1.2fr] md:items-end">
+
+                    <div>
+
+                        <p class="text-xs font-bold uppercase tracking-[.16em] text-[#ff5c47]">
+                            Everything in one place
+                        </p>
+
+                        <h2 class="display-font mt-4 max-w-md text-4xl font-semibold leading-tight md:text-5xl">
+                            Your PDF, now ready to talk.
+                        </h2>
+
+                    </div>
+
+                    <p class="max-w-2xl text-lg leading-8 text-[#47566c]">
+                        Stop searching through pages, highlighting everything, and losing track of important details.
+                        ChatWithPDF turns static documents into an interactive learning experience.
+                    </p>
+
+                </div>
+
+                <div class="mt-12 grid gap-5 md:grid-cols-3">
+
+                    <!-- FEATURE 1 -->
+                    <article class="overflow-hidden rounded-[1.6rem] border border-[#d8d0c2] bg-white">
+
+                        <div class="h-48 w-full bg-[#dbe7ef] flex items-center justify-center">
+                            <i data-lucide="message-circle" class="h-16 w-16 text-[#10233f]"></i>
+                        </div>
+
+                        <div class="p-6">
+
+                            <span
+                                class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#d7ff49] text-[#10233f]">
+                                <i data-lucide="message-circle" class="h-5 w-5"></i>
+                            </span>
+
+                            <h3 class="mt-5 text-xl font-bold">
+                                Chat With Your PDF
+                            </h3>
+
+                            <p class="mt-3 leading-7 text-[#627086]">
+                                Ask natural questions about your document and get clear answers based on the content
+                                inside it.
+                            </p>
+
+                        </div>
+                    </article>
+
+                    <!-- FEATURE 2 -->
+                    <article class="overflow-hidden rounded-[1.6rem] border border-[#d8d0c2] bg-white">
+
+                        <div class="h-48 w-full bg-[#ff7a66] flex items-center justify-center">
+                            <i data-lucide="network" class="h-16 w-16 text-[#10233f]"></i>
+                        </div>
+
+                        <div class="p-6">
+
+                            <span
+                                class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ff7a66] text-[#10233f]">
+                                <i data-lucide="network" class="h-5 w-5"></i>
+                            </span>
+
+                            <h3 class="mt-5 text-xl font-bold">
+                                Find What Matters
+                            </h3>
+
+                            <p class="mt-3 leading-7 text-[#627086]">
+                                Quickly locate relevant information without manually searching page after page.
+                            </p>
+
+                        </div>
+                    </article>
+
+                    <!-- FEATURE 3 -->
+                    <article class="overflow-hidden rounded-[1.6rem] border border-[#d8d0c2] bg-white">
+
+                        <div class="h-48 w-full bg-[#10233f] flex items-center justify-center">
+                            <i data-lucide="zap" class="h-16 w-16 text-[#d7ff49]"></i>
+                        </div>
+
+                        <div class="p-6">
+
+                            <span
+                                class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#10233f] text-[#d7ff49]">
+                                <i data-lucide="zap" class="h-5 w-5"></i>
+                            </span>
+
+                            <h3 class="mt-5 text-xl font-bold">
+                                Learn Faster
+                            </h3>
+
+                            <p class="mt-3 leading-7 text-[#627086]">
+                                Get concise explanations and spend your time understanding ideas instead of hunting for
+                                them.
+                            </p>
+
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKFLOW -->
+        <section id="workflow" class="w-full bg-[#dbe7ef] py-20 md:py-28">
+
+            <div class="mx-auto grid w-full max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-[.78fr_1.22fr]">
+
+                <div>
+
+                    <p class="text-xs font-bold uppercase tracking-[.16em] text-[#ff5c47]">
+                        Simple workflow
+                    </p>
+
+                    <h2 class="display-font mt-4 text-4xl font-semibold leading-tight md:text-5xl">
+                        From document to understanding in minutes.
+                    </h2>
+
+                    <p class="mt-6 max-w-md text-lg leading-8 text-[#47566c]">
+                        Upload your PDF, let ChatWithPDF understand it, then start asking questions. No complicated
+                        setup. Just your document and your curiosity.
+                    </p>
+
+                    <div class="mt-9 rounded-2xl border border-[#abc0cc] bg-[#f7f1e8] p-5">
+
+                        <p class="text-xs font-bold uppercase tracking-[.14em] text-[#10233f]">
+                            Try the interactive example
+                        </p>
+
+                        <p class="mt-2 text-sm leading-6 text-[#627086]">
+                            Choose a question to see how ChatWithPDF can turn information from a document into a useful
+                            answer.
+                        </p>
+
+                    </div>
+                </div>
+
+                <!-- DEMO -->
+                <div class="rounded-[1.7rem] bg-[#10233f] p-5 shadow-xl md:p-7">
+
+                    <div class="flex items-center justify-between border-b border-white/15 pb-5">
+
+                        <div>
+
+                            <p class="text-xs font-bold uppercase tracking-[.14em] text-[#d7ff49]">
+                                Interactive Demo
+                            </p>
+
+                            <h3 class="mt-2 text-xl font-bold text-white">
+                                Ask the PDF
+                            </h3>
+
+                        </div>
+
+                        <span
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-[#d7ff49] text-[#10233f]">
+                            <i data-lucide="bot" class="h-5 w-5"></i>
+                        </span>
+
+                    </div>
+
+                    <div class="mt-6 grid gap-3 sm:grid-cols-3" role="group" aria-label="Example PDF questions">
+
+                        <button
+                            class="question-chip active rounded-xl border border-white/20 px-3 py-3 text-left text-sm font-semibold text-white transition hover:border-[#d7ff49]"
+                            type="button" data-answer="0" aria-pressed="true">
+                            What is the main idea?
+                        </button>
+
+                        <button
+                            class="question-chip rounded-xl border border-white/20 px-3 py-3 text-left text-sm font-semibold text-white transition hover:border-[#d7ff49]"
+                            type="button" data-answer="1" aria-pressed="false">
+                            Explain it simply.
+                        </button>
+
+                        <button
+                            class="question-chip rounded-xl border border-white/20 px-3 py-3 text-left text-sm font-semibold text-white transition hover:border-[#d7ff49]"
+                            type="button" data-answer="2" aria-pressed="false">
+                            What should I remember?
+                        </button>
+
+                    </div>
+
+                    <div class="mt-5 rounded-2xl bg-[#f7f1e8] p-5 md:p-6">
+
+                        <div id="answer-0" class="demo-answer">
+
+                            <p class="text-xs font-bold uppercase tracking-[.14em] text-[#ff5c47]">
+                                Main Idea
+                            </p>
+
+                            <p class="mt-3 leading-7">
+                                The document explains how a complex topic can be broken into smaller concepts, making it
+                                easier to understand, remember, and apply.
+                            </p>
+
+                            <span class="mt-4 inline-flex rounded-full bg-[#d7ff49] px-3 py-1 text-xs font-bold">
+                                Based on your PDF
+                            </span>
+
+                        </div>
+
+                        <div id="answer-1" class="demo-answer hidden">
+
+                            <p class="text-xs font-bold uppercase tracking-[.14em] text-[#ff5c47]">
+                                Simple Explanation
+                            </p>
+
+                            <p class="mt-3 leading-7">
+                                Think of it as turning a long chapter into a conversation. Instead of searching for an
+                                answer yourself, you can simply ask the document what you want to know.
+                            </p>
+
+                            <span class="mt-4 inline-flex rounded-full bg-[#d7ff49] px-3 py-1 text-xs font-bold">
+                                Simplified for learning
+                            </span>
+
+                        </div>
+
+                        <div id="answer-2" class="demo-answer hidden">
+
+                            <p class="text-xs font-bold uppercase tracking-[.14em] text-[#ff5c47]">
+                                Key Takeaway
+                            </p>
+
+                            <p class="mt-3 leading-7">
+                                Focus on the core concepts, the relationships between them, and the examples that
+                                explain how those concepts work in practice.
+                            </p>
+
+                            <span class="mt-4 inline-flex rounded-full bg-[#d7ff49] px-3 py-1 text-xs font-bold">
+                                Key points extracted
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- STEPS -->
+                    <div class="mt-5 grid gap-3 sm:grid-cols-3">
+
+                        <div class="rounded-xl border border-white/15 p-4">
+                            <span class="text-[#d7ff49]">
+                                <i data-lucide="upload-cloud" class="h-5 w-5"></i>
+                            </span>
+
+                            <p class="mt-3 text-sm font-bold text-white">
+                                1. Upload your PDF
+                            </p>
+                        </div>
+
+                        <div class="rounded-xl border border-white/15 p-4">
+                            <span class="text-[#d7ff49]">
+                                <i data-lucide="scan-search" class="h-5 w-5"></i>
+                            </span>
+
+                            <p class="mt-3 text-sm font-bold text-white">
+                                2. Let AI understand it
+                            </p>
+                        </div>
+
+                        <div class="rounded-xl border border-white/15 p-4">
+                            <span class="text-[#d7ff49]">
+                                <i data-lucide="message-square-text" class="h-5 w-5"></i>
+                            </span>
+
+                            <p class="mt-3 text-sm font-bold text-white">
+                                3. Ask your questions
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FUTURE -->
+        <section id="future" class="w-full bg-[#f7f1e8] py-20 md:py-28">
+
+            <div class="mx-auto w-full max-w-7xl px-5 md:px-8">
+
+                <div class="rounded-[2rem] bg-[#ff7a66] p-7 md:p-12">
+
+                    <div class="grid gap-9 lg:grid-cols-[1fr_1fr] lg:items-end">
+
+                        <div>
+
+                            <p class="text-xs font-bold uppercase tracking-[.16em] text-[#10233f]">
+                                Built to grow
+                            </p>
+
+                            <h2
+                                class="display-font mt-4 max-w-xl text-4xl font-semibold leading-tight text-[#10233f] md:text-5xl">
+                                More than a PDF reader. A smarter way to learn.
+                            </h2>
+
+                        </div>
+
+                        <p class="max-w-xl text-lg leading-8 text-[#10233f]">
+                            ChatWithPDF is designed to evolve from a simple document assistant into a complete learning
+                            companion for students, researchers, professionals, and curious minds.
+                        </p>
+
+                    </div>
+
+                    <div class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
+                        <div class="rounded-2xl bg-white/40 p-5">
+
+                            <i data-lucide="files" class="h-5 w-5"></i>
+
+                            <p class="mt-4 font-bold">
+                                Multiple Documents
+                            </p>
+
+                        </div>
+
+                        <div class="rounded-2xl bg-white/40 p-5">
+
+                            <i data-lucide="history" class="h-5 w-5"></i>
+
+                            <p class="mt-4 font-bold">
+                                Conversation History
+                            </p>
+
+                        </div>
+
+                        <div class="rounded-2xl bg-white/40 p-5">
+
+                            <i data-lucide="languages" class="h-5 w-5"></i>
+
+                            <p class="mt-4 font-bold">
+                                Multilingual Learning
+                            </p>
+
+                        </div>
+
+                        <div class="rounded-2xl bg-white/40 p-5">
+
+                            <i data-lucide="notebook-tabs" class="h-5 w-5"></i>
+
+                            <p class="mt-4 font-bold">
+                                Notes & Study Tools
+                            </p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full bg-[#10233f]">
+
+        <div
+            class="mx-auto flex w-full max-w-7xl flex-col gap-5 px-5 py-9 md:flex-row md:items-center md:justify-between md:px-8">
+
+            <div class="flex items-center gap-3">
+
+                <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#d7ff49] text-[#10233f]">
+                    <i data-lucide="file-text" class="h-5 w-5"></i>
+                </span>
+
+                <span class="font-bold text-white">
+                    ChatWithPDF
+                </span>
+
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4 text-sm text-[#dbe7ef]">
+                <a class="hover:text-[#d7ff49]" href="dashboard.html">Dashboard</a>
+                <a class="hover:text-[#d7ff49]" href="terms.html">Terms</a>
+                <a class="hover:text-[#d7ff49]" href="privacy.html">Privacy</a>
+                <a class="hover:text-[#d7ff49]" href="login.html">Login</a>
+                <a class="hover:text-[#d7ff49]" href="register.html">Register</a>
+            </div>
+
+            <p class="text-sm text-[#dbe7ef]">
+                © 2026 ChatWithPDF. Learn more from every document.
+            </p>
+
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            lucide.createIcons();
+
+            const menuButton = document.getElementById("menu-button");
+            const mobileMenu = document.getElementById("mobile-menu");
+
+            menuButton.addEventListener("click", function () {
+
+                const open = mobileMenu.classList.toggle("mobile-menu-open");
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    String(open)
+                );
+
+            });
+
+            mobileMenu.querySelectorAll("a").forEach(function (link) {
+
+                link.addEventListener("click", function () {
+
+                    mobileMenu.classList.remove("mobile-menu-open");
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                });
+
+            });
+
+            const questionButtons =
+                document.querySelectorAll("[data-answer]");
+
+            const answers =
+                document.querySelectorAll(".demo-answer");
+
+            questionButtons.forEach(function (button) {
+
+                button.addEventListener("click", function () {
+
+                    const answerId = button.dataset.answer;
+
+                    questionButtons.forEach(function (item) {
+
+                        const isActive = item === button;
+
+                        item.classList.toggle(
+                            "active",
+                            isActive
+                        );
+
+                        item.setAttribute(
+                            "aria-pressed",
+                            String(isActive)
+                        );
+
+                    });
+
+                    answers.forEach(function (answer) {
+
+                        answer.classList.toggle(
+                            "hidden",
+                            answer.id !== "answer-" + answerId
+                        );
+
+                    });
+
+                });
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

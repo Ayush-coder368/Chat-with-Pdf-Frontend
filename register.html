@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Create Account — ChatWithPDF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+    <main class="auth-page">
+        <section class="auth-wrap">
+            <aside class="auth-side"><a class="brand" href="index.html"><span class="brand-mark"><i
+                            data-lucide="file-text"></i></span>ChatWithPDF</a>
+                <h1 class="display">Build your learning space.</h1>
+                <p>Tell ChatWithPDF a little about your academic background so future answers can be adapted to your
+                    course and branch.</p>
+                <div class="auth-points">
+                    <div class="auth-point"><i data-lucide="graduation-cap"></i>Student-focused answers</div>
+                    <div class="auth-point"><i data-lucide="brain"></i>Better academic context</div>
+                    <div class="auth-point"><i data-lucide="shield-check"></i>Your profile stays yours</div>
+                </div>
+            </aside>
+            <section class="auth-form">
+                <h2>Create account</h2>
+                <p class="muted">Set up your ChatWithPDF learning profile.</p>
+                <form id="auth-form" data-mode="register">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Full name</label><input class="input" name="name" required
+                                placeholder="Ayush Verma"></div>
+                        <div class="form-group"><label>Email</label><input class="input" type="email" name="email"
+                                required placeholder="you@example.com"></div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Course</label><input class="input" name="course" required
+                                placeholder="B.Tech"></div>
+                        <div class="form-group"><label>Branch</label><input class="input" name="branch" required
+                                placeholder="Computer Science"></div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Year / Semester</label><input class="input" name="year"
+                                placeholder="3rd Year / 5th Sem"></div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Password</label><input class="input" type="password"
+                                name="password" required placeholder="Minimum 6 characters"></div>
+                        <div class="form-group"><label>Confirm password</label><input class="input" type="password"
+                                name="confirmPassword" required placeholder="Repeat password"></div>
+                    </div><label class="check"><input type="checkbox" required> I agree to the <a
+                            href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</label>
+                    <div class="form-actions"><button class="btn btn-primary" type="submit">Create account <i
+                                data-lucide="arrow-right"></i></button></div>
+                </form>
+                <div class="form-foot">Already have an account? <a href="login.html">Sign in</a><br><a
+                        href="index.html">← Back to home</a></div>
+            </section>
+        </section>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Privacy Policy — ChatWithPDF</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+    <header
+        style="border-bottom:1px solid var(--line);background:rgba(247,241,232,.95);position:sticky;top:0;z-index:10">
+        <div class="container" style="height:70px;display:flex;align-items:center;justify-content:space-between"><a
+                class="brand" href="index.html"><span class="brand-mark"><i
+                        data-lucide="file-text"></i></span>ChatWithPDF</a><a class="btn btn-primary"
+                href="dashboard.html">Dashboard</a></div>
+    </header>
+    <main class="legal">
+        <article>
+            <p class="muted">Last updated: November 10, 2026</p>
+            <h1 class="display">Privacy Policy</h1>
+            <p>This privacy page is a frontend project template. Before production use, replace it with a policy that
+                accurately reflects your actual database, hosting, authentication provider, AI provider, analytics, and
+                retention practices.</p>
+            <h2>1. Information we collect</h2>
+            <p>The application may collect account information such as name and email, optional academic information
+                such as course and branch, uploaded document metadata, conversation history, and questions submitted to
+                the AI service.</p>
+            <h2>2. How information is used</h2>
+            <ul>
+                <li>To authenticate users and maintain accounts.</li>
+                <li>To display uploaded documents and conversation history.</li>
+                <li>To provide AI answers based on uploaded documents.</li>
+                <li>To personalize explanations using optional academic context.</li>
+                <li>To maintain and improve application reliability and security.</li>
+            </ul>
+            <h2>3. Uploaded PDFs</h2>
+            <p>Documents may need to be transferred from the browser to your backend and then to the Python AI service
+                for extraction and retrieval. Your final production policy should clearly identify where files are
+                stored, how long they are retained, and which third-party AI providers can process their contents.</p>
+            <h2>4. Academic information</h2>
+            <p>Course, branch, year, and college information is optional personalization data. The application should
+                only use it for purposes explained to the user and should provide a way to update or remove it.</p>
+            <h2>5. Local demo storage</h2>
+            <p>This frontend demo uses browser localStorage for simulated account, document, and chat data. This is not
+                a secure production authentication or database mechanism. Replace it with server-side sessions or secure
+                token-based authentication before deployment.</p>
+            <h2>6. Security</h2>
+            <p>A production version should use HTTPS, secure password hashing, protected API routes, authorization
+                checks, secure cookies where applicable, file validation, upload limits, malware scanning, and
+                appropriate secrets management.</p>
+            <h2>7. Your choices</h2>
+            <p>Users should be able to update their profile and, where supported by the backend, delete their uploaded
+                documents and conversation history.</p>
+            <h2>8. Contact</h2>
+            <p>For a real deployment, add your official privacy contact and data-controller details here.</p>
+        </article>
+    </main>
+    <footer class="footer-simple">© 2026 ChatWithPDF · <a href="terms.html">Terms of Use</a></footer>
+    <script>lucide.createIcons()</script>
+</body>
+
+</html>
